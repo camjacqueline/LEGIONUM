@@ -19,11 +19,6 @@ A lightweight web-based calculator for UFC (Unités Formant Colonies) used in mi
 ## Installation
 
 No installation required.
-
-```bash
-git clone https://github.com/camjacqueline/ufc-calculator.git
-cd ufc-calculator
-
 Open index.html in a modern web browser.
 
 ## Technologies 
@@ -46,3 +41,8 @@ Not intended for clinical decision-making without validation.
 ## License
 
 MIT License.
+
+
+```bash
+git clone https://github.com/camjacqueline/ufc-calculator.git
+cd ufc-calculator
