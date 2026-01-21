@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Character encoding -->
+  <meta charset="UTF-8">
+
+  <!-- Page title -->
+  <title>Calculateur d'UFC</title>
+
+  <!-- Bootstrap CSS for layout and basic styling -->
+  <link
+    rel="stylesheet"
+    href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  >
+
+  <!-- Custom stylesheet (optional / project-specific) -->
+  <link rel="stylesheet" type="text/css" href="style.css">
+
+  <style>
+    /*
+      Custom inline styling used only for checkbox alignment.
+      This avoids modifying the external stylesheet.
+    */
+    .checkbox-cell {
+      text-align: center;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <!-- Main application title -->
+    <h1>Calculateur d'UFC</h1>
+
+    <!-- Table used to capture colony counts by type and method -->
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <!-- Colony type (A–E) -->
+          <th>Type</th>
+
+          <!-- Direct concentration (n) -->
+          <th>Concentration directe (n)</th>
+
+          <!-- Filtration on 10 ml (n') -->
+          <th>Filtration 10 ml (n')</th>
+
+          <!-- Filtration on 100 ml (n'') -->
+          <th>Filtration 100 ml (n'')</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <!--
+          Dynamic generation of table rows for colony types A–E.
+          Each row contains three numeric inputs corresponding to:
+          - Direct concentration
+          - Filtration 10 ml
+          - Filtration 100 ml
+
+          document.write is used here intentionally to keep the file self-contained.
+        -->
+        <script>
+          const types = ['A', 'B', 'C', 'D', 'E'];
+          document.write(types.map(type => `
+            <tr>
+              <td>${type}</td>
+              <td>
+                <input
+                  type="number"
+                  id="d_${type}"
+                  class="form-control d_input"
+                  value="0"
+                >
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="n_1_${type}"
+                  class="form-control n_1_input"
+                  value="0"
+                >
+              </td>
+              <td>
+                <input
+                  type="number"
+                  id="n_2_${type}"
+                  class="form-control n_2_input"
+                  value="0"
+                >
+              </td>
+            </tr>
+          `).join(''));
+        </script>
+
+        <!--
+          Row used to indicate "envahie flore" (overgrowth / interfering flora).
+          Each checkbox disables the corresponding column inputs when checked.
+        -->
+        <tr>
+          <td><strong>Envahie flore</strong></td>
+
+          <td class="checkbox-cell">
+            <input
+              type="checkbox"
+              id="d_checkbox"
+              class="form-check-input"
+              onclick="toggleInput('d')"
+            >
+          </td>
+
+          <td class="checkbox-cell">
+            <input
+              type="checkbox"
+              id="n_1_checkbox"
+              class="form-check-input"
+              onclick="toggleInput('n_1')"
+            >
+          </td>
+
+          <td class="checkbox-cell">
+            <input
+              type="checkbox"
+              id="n_2_checkbox"
+              class="form-check-input"
+              onclick="toggleInput('n_2')"
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!--
+      Action buttons triggering the different calculation modes:
+      - Per-type UFC calculation
+      - Total UFC calculation (all types combined)
+      - Determination of colonies requiring confirmation
+    -->
+    <button onclick="calculateColoniesPerType()">
+      Calculate Colonies per Type
+    </button>
+
+    <button onclick="calculateTotalColonies()">
+      Calculate Total Colonies
+    </button>
+
+    <button onclick="calculateColoniesToConfirm()">
+      Calculate Colonies to Confirm
+    </button>
+
+    <!-- Container for displaying calculation results -->
+    <p id="resultat" class="mt-3"></p>
+  </div>
+
+  <!-- Main application logic -->
+  <script src="UFC_V2.2.js"></script>
+
+  <!-- Bootstrap JavaScript dependencies -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
